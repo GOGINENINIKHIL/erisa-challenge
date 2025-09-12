@@ -1,0 +1,72 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Claims Management System{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    
+    <style>
+        [x-cloak] { display: none !important; }
+    </style>
+</head>
+<body>
+    {% block user_bar %}
+    <div class="user-bar">
+        <div class="user-info">
+        {% if user.is_authenticated %}
+            <span>Welcome, <strong>{{ user.username }}</strong></span>
+            <form action="{% url 'logout' %}" method="post" style="display: inline;">
+                {% csrf_token %}
+                <button type="submit" class="link-button">Logout</button>
+            </form>
+        {% else %}
+            <a href="{% url 'login' %}">Login</a>
+            <a href="{% url 'signup' %}">Sign Up</a>
+        {% endif %}
+        </div>
+    </div>
+    {% endblock user_bar %}
+
+    {% block content %}{% endblock %}
+
+    <script src="https://unpkg.com/htmx.org@1.9.10"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    
+    <script>
+        document.body.addEventListener('htmx:configRequest', function(evt) {
+            const getCookie = (name) => {
+                let cookieValue = null;
+                if (document.cookie && document.cookie !== '') {
+                    const cookies = document.cookie.split(';');
+                    for (let i = 0; i < cookies.length; i++) {
+                        const cookie = cookies[i].trim();
+                        if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                            cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                            break;
+                        }
+                    }
+                }
+                return cookieValue;
+            }
+            if (!['GET', 'HEAD', 'OPTIONS', 'TRACE'].includes(evt.detail.verb)) {
+                evt.detail.headers['X-CSRFToken'] = getCookie('csrftoken');
+            }
+        });
+    </script>
+
+    <script>
+        (function() {
+            try {
+                const userTimeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+                if (userTimeZone) {
+                    document.cookie = `user_timezone=${userTimeZone};path=/;samesite=Strict`;
+                }
+            } catch (e) {
+                console.error("Could not set time zone cookie:", e);
+            }
+        })();
+    </script>
+</body>
+</html>

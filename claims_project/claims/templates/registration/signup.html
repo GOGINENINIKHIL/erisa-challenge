@@ -1,0 +1,18 @@
+{% extends 'claims/base.html' %}
+
+{% block title %}Sign Up{% endblock %}
+
+{% block user_bar %}{% endblock %}
+
+{% block content %}
+<div class="container" style="max-width: 500px; margin-top: 5em;">
+    <h2>Sign Up</h2>
+    <form method="post" class="login-form">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="action-button primary">Sign Up</button>
+    </form>
+    
+    <p style="margin-top: 1em;">Already have an account? <a href="{% url 'login' %}">Login</a></p>
+</div>
+{% endblock %}

@@ -1,0 +1,9 @@
+<button id="flag-button-{{ claim.id }}"
+        class="action-button"
+        type="button"
+        hx-post="{% url 'toggle_flag' claim.pk %}"
+        hx-target="#flag-form-{{ claim.id }}"
+        hx-swap="innerHTML">
+    {% csrf_token %}
+    {% if claim.is_flagged %}Unflag Claim{% else %}Flag for Review{% endif %}
+</button>

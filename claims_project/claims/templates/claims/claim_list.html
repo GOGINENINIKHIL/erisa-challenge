@@ -1,0 +1,38 @@
+{% extends 'claims/base.html' %}
+
+{% block title %}Claims List{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="header-nav">
+        <h1>Claims Management System</h1>
+        <a href="{% url 'dashboard' %}" class="nav-link">View Dashboard &rarr;</a>
+    </div>
+
+    <div class="filter-form">
+        <input type="text" name="insurer" placeholder="Search by insurer..." value="{{ selected_insurer }}"
+               hx-get="{% url 'claim_list' %}"
+               hx-trigger="keyup changed delay:500ms"
+               hx-target="#results-container"
+               hx-swap="innerHTML"
+               hx-include="[name='status']">
+
+        <select name="status"
+                hx-get="{% url 'claim_list' %}"
+                hx-trigger="change"
+                hx-target="#results-container"
+                hx-swap="innerHTML"
+                hx-include="[name='insurer']">
+            <option value="">All Statuses</option>
+            {% for status in statuses %}
+                <option value="{{ status }}" {% if status == selected_status %}selected{% endif %}>{{ status }}</option>
+            {% endfor %}
+        </select>
+    </div>
+
+    <div id="results-container">
+        {% include 'claims/partials/claim_results.html' %}
+    </div>
+
+</div>
+{% endblock %}

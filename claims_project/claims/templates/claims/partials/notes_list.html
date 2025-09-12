@@ -1,0 +1,24 @@
+{% load tz %}
+
+{% for note in claim.notes.all reversed %}
+    <div class="note-item" id="note-{{ note.id }}">
+        <div class="note-content">
+            {% if note.user.is_staff %}
+                <h4 class="note-title">🧑‍💼 Admin Note</h4>
+            {% endif %}
+            <p>{{ note.text }}</p>
+            
+            <small>by <strong>{{ note.user.username }}</strong> on {{ note.created_at|date:"m/d/Y" }} at {{ note.created_at|date:"P" }}</small>
+        </div>
+        
+        <button class="delete-note-btn"
+                hx-post="{% url 'delete_note' note.pk %}"
+                hx-target="#notes-list-{{ claim.id }}"
+                hx-swap="innerHTML"
+                hx-confirm="Are you sure you want to delete this note?">
+            &times;
+        </button>
+    </div>
+{% empty %}
+    <p>No notes for this claim yet.</p>
+{% endfor %}

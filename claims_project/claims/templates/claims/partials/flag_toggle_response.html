@@ -1,0 +1,5 @@
+{% include 'claims/partials/flag_button.html' %}
+
+<span id="flag-indicator-{{ claim.id }}" hx-swap-oob="true">
+    {% if claim.is_flagged %}🚩{% endif %}
+</span>

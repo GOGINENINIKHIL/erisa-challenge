@@ -1,0 +1,78 @@
+<div class="details-grid">
+    <div class="details-card">
+        <div class="card-header">
+            <h4>Claim Details - {{ claim.id }}</h4>
+            <span class="status status-{{ claim.status|slugify }}">{{ claim.status }}</span>
+        </div>
+        <br>
+        <div class="card-content">
+            <div class="info-row">
+                <div class="info-block">
+                    <span class="info-label">Patient</span>
+                    <span class="info-value">{{ claim.patient_name }}</span>
+                </div>
+                <div class="info-block align-right">
+                    <span class="info-label">Discharge Date</span>
+                    <span class="info-value">{{ claim.discharge_date|date:"m/d/Y" }}</span>
+                </div>
+            </div>
+
+            <div class="info-row">
+                <div class="info-block">
+                    <span class="info-label">Billed Amount</span>
+                    <span class="info-value">${{ claim.billed_amount }}</span>
+                </div>
+                <div class="info-block align-right">
+                    <span class="info-label">Paid Amount</span>
+                    <span class="info-value amount-paid">${{ claim.paid_amount }}</span>
+                </div>
+            </div>
+
+            <div class="centered-info">
+                <div class="info-block">
+                    <span class="info-label">CPT Codes</span>
+                    <span class="info-value">{{ claim.details.cpt_codes|default:"N/A" }}</span>
+                </div>
+                 <div class="info-block">
+                    <span class="info-label">Insurer</span>
+                    <span class="info-value">{{ claim.insurer_name }}</span>
+                </div>
+                <div class="info-block">
+                    <span class="info-label">Denial Reason</span>
+                    <span class="info-text">{{ claim.details.denial_reason|default:"N/A" }}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="right-column">
+        <div class="details-card">
+            <div class="card-header">
+                <h4>Notes & Annotations</h4>
+            </div>
+            <div id="notes-list-{{ claim.id }}" class="card-content">
+                {% include 'claims/partials/notes_list.html' %}
+            </div>
+        </div>
+
+        <div class="details-card">
+            <div class="card-header">
+                <h4>Quick Actions</h4>
+            </div>
+            <div class="card-content">
+                <form id="flag-form-{{ claim.id }}" class="action-form">
+                     {% include 'claims/partials/flag_button.html' %}
+                </form>
+                <form class="action-form"
+                      hx-post="{% url 'add_note' claim.pk %}"
+                      hx-target="#notes-list-{{ claim.id }}"
+                      x-data="{ noteText: '' }"
+                      @submit.prevent="setTimeout(() => { noteText = '' }, 100)">
+                    {% csrf_token %}
+                    <textarea name="note_text" placeholder="Add a new note..." required x-model="noteText"></textarea>
+                    <button type="submit" class="action-button primary">Add Note</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

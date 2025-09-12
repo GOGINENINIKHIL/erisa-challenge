@@ -1,0 +1,68 @@
+<div class="table-container">
+    <table class="claims-table" x-data="{ openClaimId: null }">
+        <thead>
+            <tr>
+                <th>Claim ID</th>
+                <th>Patient</th>
+                <th>Billed</th>
+                <th>Paid</th>
+                <th>Status</th>
+                <th>Insurer</th>
+                <th>Discharge Date</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for claim in claims_page %}
+            <tr class="claim-row">
+                <td>{{ claim.id }}</td>
+                <td>{{ claim.patient_name }}</td>
+                <td>${{ claim.billed_amount }}</td>
+                <td>${{ claim.paid_amount }}</td>
+                <td>
+                    <span class="status status-{{ claim.status|slugify }}">{{ claim.status }}</span>
+                </td>
+                <td>{{ claim.insurer_name }}</td>
+                <td>{{ claim.discharge_date|date:"m/d/Y" }}</td>
+                <td>
+                    <button
+                        hx-get="{% url 'claim_detail' claim.pk %}"
+                        hx-target="#details-content-{{ claim.id }}"
+                        hx-swap="innerHTML"
+                        @click="openClaimId = (openClaimId === {{ claim.id }} ? null : {{ claim.id }})">
+                        View
+                    </button>
+                    <span id="flag-indicator-{{ claim.id }}">
+                        {% if claim.is_flagged %}🚩{% endif %}
+                    </span>
+                </td>
+            </tr>
+            <tr x-show="openClaimId === {{ claim.id }}" x-cloak>
+                <td id="details-content-{{ claim.id }}" colspan="8"></td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="8">No claims found.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<div class="pagination">
+    <span class="step-links">
+        {% if claims_page.has_previous %}
+            <a href="?page=1&status={{ selected_status }}&insurer={{ selected_insurer }}">&laquo; first</a>
+            <a href="?page={{ claims_page.previous_page_number }}&status={{ selected_status }}&insurer={{ selected_insurer }}">previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ claims_page.number }} of {{ claims_page.paginator.num_pages }}.
+        </span>
+
+        {% if claims_page.has_next %}
+            <a href="?page={{ claims_page.next_page_number }}&status={{ selected_status }}&insurer={{ selected_insurer }}">next</a>
+            <a href="?page={{ claims_page.paginator.num_pages }}&status={{ selected_status }}&insurer={{ selected_insurer }}">last &raquo;</a>
+        {% endif %}
+    </span>
+</div>

@@ -1,0 +1,303 @@
+/* --- 1. Variables and Global Styles --- */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
+:root {
+    --primary-color: #4f46e5;
+    --primary-hover: #4338ca;
+    --secondary-color: #10b981;
+    --border-color: #d1d5db;
+    --background-color: #f1f5f9;
+    --text-color: #334155;
+    --text-muted: #64748b;
+    --header-bg: #ffffff;
+    --danger-color: #ef4444;
+
+    --status-paid-bg: #ecfdf5;
+    --status-paid-text: #059669;
+    --status-denied-bg: #fee2e2;
+    --status-denied-text: #b91c1c;
+    --status-under-review-bg: #fefce8;
+    --status-under-review-text: #ca8a04;
+}
+body {
+    font-family: 'Poppins', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    margin: 0;
+}
+
+
+
+/* --- 2. User Bar --- */
+.user-bar {
+    padding: 0.75em 2em;
+    background: linear-gradient(90deg, #1e3a8a, #312e81);
+    color: #e0e7ff;
+    font-size: 0.9em;
+    display: flex;
+    justify-content: flex-end;
+}
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 1.5em;
+}
+.user-bar a, .link-button {
+    color: #ffffff;
+    font-weight: 500;
+    text-decoration: none;
+    transition: color 0.2s;
+}
+.user-bar a:hover, .link-button:hover {
+    color: #a5b4fc;
+    text-decoration: none;
+}
+.link-button {
+    background: none; border: none; cursor: pointer; padding: 0; font-size: inherit; font-family: inherit;
+}
+
+
+
+/* --- 3. Main Content & Forms --- */
+.container {
+    max-width: 1400px; /* Wider container */
+    margin: 2em auto;
+    background-color: var(--header-bg);
+    border-radius: 16px;
+    box-shadow: 0 10px 25px -5px rgba(0,0,0,0.07), 0 4px 6px -2px rgba(0,0,0,0.05);
+    padding: 2.5em 3em;
+}
+.login-form p { margin-bottom: 1.25em; }
+.login-form label { display: block; margin-bottom: 0.5em; font-weight: 500; }
+.login-form input {
+    width: 100%;
+    padding: 0.8em 1em;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    box-sizing: border-box;
+}
+a { color: var(--primary-color); text-decoration: none; font-weight: 500; }
+a:hover { text-decoration: underline; }
+
+
+
+/* --- 4. Header & Navigation --- */
+.header-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2em;
+    padding-bottom: 1.5em;
+    border-bottom: 1px solid var(--border-color);
+}
+h1, h2, h3, h4 { margin-top: 0; color: #1e293b; }
+h1 { font-size: 2em; font-weight: 700; }
+.nav-link {
+    font-weight: 600;
+    padding: 0.6em 1.2em;
+    border-radius: 8px;
+    transition: background-color 0.2s;
+    background-color: #eef2ff;
+    color: var(--primary-color);
+}
+.nav-link:hover { background-color: #e0e7ff; text-decoration: none; }
+
+
+
+/* --- 5. Filter Form --- */
+.filter-form {
+    display: flex;
+    gap: 1em;
+    align-items: center;
+    margin-bottom: 2em;
+}
+.filter-form input, .filter-form select {
+    font-size: 0.9em;
+    padding: 0.8em 1em;
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+}
+.filter-form input:focus, .filter-form select:focus {
+    outline: 2px solid var(--primary-color);
+    border-color: var(--primary-color);
+}
+
+
+
+/* --- 6. Claims Table --- */
+.claims-table {
+    width: 100%;
+    border-collapse: collapse;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 0 15px rgba(0,0,0,0.05);
+}
+.claims-table th, .claims-table td {
+    padding: 1.25em 1.5em;
+    text-align: left;
+    border-bottom: 1px solid var(--border-color);
+}
+.claims-table th {
+    background-color: #f8fafc;
+    font-weight: 600;
+    font-size: 0.8em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+}
+.claims-table tr:last-child td { border-bottom: none; }
+.claims-table tr:hover { background-color: #f8fafc; }
+.claims-table button {
+    background-color: #fff;
+    border: 1px solid var(--border-color);
+    padding: 0.5em 1em;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.2s;
+}
+.claims-table button:hover { background-color: #f1f5f9; border-color: #cbd5e1; }
+
+
+
+/* --- 7. Status Badges --- */
+.status {
+    display: inline-block; padding: 0.4em 0.8em; font-size: 0.75em;
+    font-weight: 600; border-radius: 9999px; text-transform: uppercase;
+    min-width: 100px; text-align: center;
+}
+.status-paid { background-color: var(--status-paid-bg); color: var(--status-paid-text); }
+.status-denied { background-color: var(--status-denied-bg); color: var(--status-denied-text); }
+.status-under-review { background-color: var(--status-under-review-bg); color: var(--status-under-review-text); }
+
+
+
+/* --- 8. Detail View (HTMX) --- */
+.claim-details-container { 
+    padding: 0 !important; 
+    background-color: #f9fafb; 
+}
+.details-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 1.5em; padding: 1.5em;
+    animation: fadeIn 0.4s ease-in-out;
+}
+.right-column { display: flex; flex-direction: column; gap: 1.5em; }
+.details-card {
+    background-color: #ffffff; border: 1px solid var(--border-color);
+    border-radius: 12px; padding: 1.5em; display: flex; flex-direction: column;
+}
+.card-header {
+    display: flex; justify-content: space-between; align-items: flex-start;
+    border-bottom: 1px solid var(--border-color); padding-bottom: 1em; margin-bottom: 1em;
+}
+.card-header h4 { font-weight: 700; }
+.card-content { flex-grow: 1; }
+
+
+
+/* --- 9. Notes & Actions --- */
+.notes-list p { margin-top: 0; }
+.note-item {
+    display: flex; justify-content: space-between; align-items: flex-start;
+    padding: 1em 0; border-bottom: 1px solid var(--border-color);
+}
+.note-item:last-child { border-bottom: none; }
+.note-content p { margin: 0 0 0.25em 0; }
+.note-content small { color: var(--text-muted); }
+.delete-note-btn {
+    background: none; border: none; color: #9ca3af;
+    font-size: 1.5em; cursor: pointer; padding: 0 0.25em; line-height: 1;
+}
+.delete-note-btn:hover { color: var(--danger-color); }
+.note-title {
+    margin: 0 0 0.5em 0; font-size: 0.9em; font-weight: 600;
+    color: var(--primary-color);
+}
+.info-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1.5em;
+}
+.info-block {
+    display: flex;
+    flex-direction: column;
+}
+.info-block.align-right {
+    text-align: right;
+}
+.info-label { font-weight: 500; color: var(--text-muted); }
+.info-value { font-weight: 600; color: var(--text-color); }
+.amount-paid { color: var(--danger-color); font-weight: 700; }
+.centered-info {
+    text-align: center;
+    border-top: 1px solid var(--border-color);
+    padding-top: 1.5em;
+    margin-top: 1.5em;
+}
+.info-text {
+    color: red;
+}
+.centered-info .info-block {
+    margin-bottom: 1.25em;
+}
+.centered-info .info-block:last-child {
+    margin-bottom: 0;
+}
+
+
+
+.action-button {
+    width: 100%; text-align: center !important; padding: 0.8em 1em;
+    margin-bottom: 0.5em; border-radius: 8px; border: 1px solid var(--border-color);
+    background-color: #fff; cursor: pointer; font-weight: 600; transition: all 0.2s;
+}
+.action-button:hover { background-color: #f1f5f9; }
+.action-button.primary {
+    background: linear-gradient(90deg, var(--primary-color), #6366f1);
+    color: white; border: none; font-weight: 700;
+}
+.action-button.primary:hover { transform: scale(1.02); }
+.action-form + .action-form { margin-top: 1.5em; }
+.action-form textarea {
+    width: 100%; min-height: 80px; padding: 0.75em;
+    border: 1px solid var(--border-color); border-radius: 8px; margin-bottom: 0.5em;
+    font-family: inherit; resize: vertical; box-sizing: border-box;
+}
+
+
+
+/* --- 10. Dashboard --- */
+.dashboard-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5em;
+}
+.stat-card {
+    background: linear-gradient(135deg, #ffffff, #f9fafb);
+    border: 1px solid var(--border-color);
+    border-radius: 16px; padding: 2em; text-align: center;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+.stat-card:hover { transform: translateY(-5px); box-shadow: 0 8px 20px -5px rgba(0,0,0,0.1); }
+.stat-value { font-size: 3.5em; font-weight: 700; color: var(--primary-color); margin: 0; }
+.stat-label { font-size: 1.1em; color: var(--text-muted); margin: 0.5em 0 0 0; }
+
+
+
+/* --- 11. Pagination --- */
+.pagination { margin-top: 2.5em; text-align: center; }
+.pagination a, .pagination .current {
+    display: inline-block; padding: 0.6em 1.2em; margin: 0 0.25em;
+    border-radius: 8px; text-decoration: none; color: var(--primary-color);
+    border: 1px solid var(--border-color); transition: all 0.2s;
+}
+.pagination a:hover { background-color: #eef2ff; color: var(--primary-hover); }
+.pagination .current {
+    background: linear-gradient(90deg, var(--primary-color), #6366f1);
+    color: white; border-color: var(--primary-color);
+}
+
+.table-container {
+    width: 100%;
+    overflow-x: auto;
+}
+
+/* --- 12. Animation --- */
+@keyframes fadeIn { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }

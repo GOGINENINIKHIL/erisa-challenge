@@ -1,0 +1,27 @@
+{% extends 'claims/base.html' %}
+
+{% block title %}Admin Dashboard{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="header-nav">
+        <h1>Admin Dashboard</h1>
+        <a href="{% url 'claim_list' %}" class="nav-link">&larr; Back to Claims List</a>
+    </div>
+
+    <div class="dashboard-grid">
+        <div class="stat-card">
+            <h2 class="stat-value">{{ total_flagged_claims }}</h2>
+            <p class="stat-label">Total Flagged Claims</p>
+        </div>
+        <div class="stat-card">
+            <h2 class="stat-value">{{ total_claims }}</h2>
+            <p class="stat-label">Total Claims</p>
+        </div>
+        <div class="stat-card">
+            <h2 class="stat-value">${{ average_underpayment|floatformat:"2" }}</h2>
+            <p class="stat-label">Average Underpayment</p>
+        </div>
+    </div>
+</div>
+{% endblock %}
