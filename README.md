@@ -9,10 +9,15 @@ This application was built as a solution to the company's full-stack developer c
 The application is built using the following technologies:
 
 **Backend:** Python with Django (v4+)
+
 **Database:** SQLite (lightweight, file-based)
+
 **Frontend:** HTML5, CSS3
+
 **Dynamic Frontend Logic:** HTMX & Alpine.js
+
 **Styling:** Custom CSS for a modern, professional look
+
 
 
 ## Features
