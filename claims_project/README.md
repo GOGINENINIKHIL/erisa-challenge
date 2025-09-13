@@ -1,99 +1,129 @@
-## Claims Management System
-
-## Overview
-This project is a full-stack web application designed to manage and analyze insurance claims. It provides a dynamic, user-friendly interface for viewing claim data, adding annotations, and flagging items for review. The system is built with a modern tech stack focused on a server-rendered architecture, enhanced with HTMX for a responsive, single-page-application feel without the complexity of a large JavaScript framework.
-
-This application was built as a solution to the company's full-stack developer challenge, implementing all core requirements and bonus features.
-
-## Tech Stack
-The application is built using the following technologies:
-
-**Backend:** Python with Django (v4+)
-**Database:** SQLite (lightweight, file-based)
-**Frontend:** HTML5, CSS3
-**Dynamic Frontend Logic:** HTMX & Alpine.js
-**Styling:** Custom CSS for a modern, professional look
+# Claims Management System
 
 
-## Features
+A full-stack web application built with Django and HTMX for efficient insurance claim analysis and management. This project was developed as a solution to the **ERISA Recovery Full-Stack Developer Challenge**, implementing all core requirements and bonus features.
 
-### Core Requirements
-**Data Ingestion:** A custom management command (`load_claims_data`) ingests initial claim data from provided CSV files directly into the SQLite database.
-**Claims List View:** A clean, paginated table displays all claims, showing key information like patient name, billed amount, paid amount, status, and insurer.
-**Live Search & Filter:** The claims list can be filtered in real-time by insurer name and claim status. As the user types or selects a filter, the table updates instantly without a page reload.
-**HTMX Detail View:** Clicking the "View" button on any claim dynamically loads a detailed view below the row, showing additional data like CPT codes and denial reasons without refreshing the page.
-**Flag & Annotate:** Users can flag claims for review and add custom, timestamped notes to any claim. All annotations are stored in the database.
+---
+
+### ✨ Live Demo & Walkthrough
 
 
-### Bonus Features Implemented
-**Full User Authentication:** A complete and secure system allows users to register, log in, and log out. All notes and flags are linked to the specific user who created them, fulfilling the "user-specific annotations" requirement.
-**Admin Dashboard:** A dedicated dashboard page at `/dashboard` provides high-level statistics, including the total number of flagged claims and the average underpayment calculated across the entire dataset.
-**Advanced CSV Re-upload:** The data ingestion command was enhanced with `--mode` arguments, allowing data to be either completely overwritten or appended to the existing dataset.
+For a detailed walkthrough of the features, please watch the demo video:
+**[🎥 Watch the Demo Video](https://drive.google.com/file/d/13IXARzylbwzxuuelI8HeEbRxcMoe9s8l/view?usp=sharing)**
 
 
-## Setup and Installation
-To run this project locally, please follow these steps:
+---
 
-### 1. Prerequisites
+### 🚀 Core Features
 
+This application provides a robust set of tools for claims analysts, built for speed and efficiency.
+
+* 🔐 **Secure User Authentication**: A complete registration and login system ensures that all actions are secure and tied to a specific user. The session ends on browser close for enhanced security.
+* 📊 **Dynamic Claims Dashboard**: A high-level dashboard provides key statistics, including the total number of flagged claims and the average underpayment amount across the entire dataset.
+* ⚡ **Live Search & Filtering**: The main claims list features a powerful live search that filters by insurer name and claim status as you type, updating the results instantly without page reloads.
+* 📄 **HTMX-Powered Detail View**: Clicking on any claim fetches and displays a detailed information panel inline, preserving the user's context and scroll position.
+* ✍️ **User-Specific Annotations**: Logged-in users can add timestamped notes to any claim. Notes created by admin users are specially marked for easy identification.
+* 🚩 **Claim Flagging**: Users can flag claims for review with a single click. The UI provides instant visual feedback by displaying a flag icon on the main list.
+* 📥 **Flexible Data Ingestion**: A custom Django management command handles loading the initial dataset from CSV files, with support for both overwriting and appending new data.
+
+---
+
+### 🛠️ Technology Stack
+
+This project leverages a modern, server-rendered architecture to deliver a fast and responsive user experience.
+
+| Category    | Technology                                                                         |
+| :---------- | :--------------------------------------------------------------------------------- |
+| **Backend** | Python with Django                                                                 |
+| **Database**| SQLite                                                                             |
+| **Frontend**| HTMX for dynamic UI updates & Alpine.js for client-side interactivity            |
+| **Styling** | Custom CSS3 for a clean, professional, and fully responsive design                 |
+| **Timezones**| JavaScript `Intl` API & Django Middleware for user-specific time zone detection |
+
+---
+
+### ⚙️ Getting Started
+
+To run this project locally, please follow these steps.
+
+#### 1. Prerequisites
 * Python 3.8+
-* `pip` (Python package installer)
+* pip (Python package installer)
 
-### 2. Clone the Repository
+#### 2. Clone the Repository
 
-Clone this project to your local machine.
+```bash
+git clone <your-repository-url>
+cd claims_project
+```
 
-* git clone <your-repository-url>
-* cd <project-folder>
+#### 3. Set Up a Virtual Environment
+It is highly recommended to use a virtual environment.
 
-### 3. Create and Activate a Virtual Environment
+* Create the environment:
 
-It's best practice to create a virtual environment to manage dependencies.
+```bash
+python -m venv venv
+```
 
-# Create the environment
-* python -m venv venv
+* Activate on Windows:
 
-# Activate it (on Windows)
-* .\venv\Scripts\Activate.ps1
+```bash
+.\venv\Scripts\Activate.ps1
+```
 
-# Activate it (on macOS/Linux)
-* source venv/bin/activate
+* Activate on macOS/Linux:
 
-### 4. Install Dependencies
-Install Django and other required packages.
-* pip install django pytz
+```bash
+source venv/bin/activate
+```
 
-### 5. Set Up the Database
-Run the migrations to create the database tables.
+#### 4. Install Dependencies
 
-* python manage.py makemigrations
-* python manage.py migrate
+```bash
+pip install django pytz
+```
 
-### 6. Create a Superuser
-Create an admin account to manage the application and test admin-specific features.
+#### 5. Initialize the Database
 
-* python manage.py createsuperuser
+This will create the database schema based on the models.
+```bash
+python manage.py makemigrations
+python manage.py migrate
+```
 
-Follow the prompts to create a username and password.
+#### 6. Create an Admin Account
 
-### 7. Load Initial Data
-Use the custom management command to load the sample claims data into the database. Make sure your `claim_list_data.csv` and `claim_detail_data.csv` files are in a `data/` folder in the project root.
+Create a superuser account to access the Django Admin and test admin-specific features.
+```bash
+python manage.py createsuperuser
+```
 
-* python manage.py load_claims_data
+#### 7. Load the Sample Data
 
-### 8. Run the Development Server
-You are now ready to run the application.
+Use the custom management command to populate the database from the provided CSV files. (Ensure your CSV files are in a data/ folder at the project root).
 
-* python manage.py runserver
+```bash
+python manage.py load_claims_data
+```
 
-The application will be available at **`http://127.0.0.1:8000/`**.
+#### 8. Run the Application
+
+```bash
+python manage.py runserver
+```
+The application will be running at http://127.0.0.1:8000/. You will be automatically redirected to the login page.
+
+---
+
+### 👤 **Application Flow**
+
+Here is the complete **Application Flow** section.
 
 
-## How to Use the Application
-
-1.  **Login:** The application is secure and requires a login. Upon visiting the site, you will be directed to the login page. Use the superuser credentials you created, or sign up as a new user.
-2.  **View Claims:** After logging in, you will see the main claims list.
-3.  **Search and Filter:** Use the search bar and status dropdown to filter the claims in real-time.
-4.  **View Details:** Click the "View" button on any claim to expand its detailed view.
-5.  **Add Notes & Flag:** In the detail view, use the "Quick Actions" panel to add notes or flag a claim for review.
-6.  **Visit Dashboard:** Click the "View Dashboard" link in the header to see aggregate statistics.
+1.  **Login/Register**: Users must first log in or create a new account via the signup page.
+2.  **View Claims List**: After logging in, users are presented with a paginated list of all insurance claims.
+3.  **Search & Analyze**: Users can filter the list in real-time or click "View" to load detailed information for a specific claim.
+4.  **Annotate & Flag**: In the detail view, users can add notes or flag the claim. All actions are recorded with their username and a timestamp.
+5.  **View Dashboard**: Admins and users can navigate to the dashboard to see high-level analytics.
+6.  **Logout**: Logging out ends the session and securely redirects the user back to the login page.
