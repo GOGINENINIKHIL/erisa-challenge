@@ -9,7 +9,7 @@ A full-stack web application built with Django and HTMX for efficient insurance 
 
 
 For a detailed walkthrough of the features, please watch the demo video:
-**[🎥 Watch the Demo on YouTube/Vimeo](https://link-to-your-demo-video)**
+**[🎥 Watch the Demo Video](https://drive.google.com/file/d/13IXARzylbwzxuuelI8HeEbRxcMoe9s8l/view?usp=sharing)**
 
 
 ---
