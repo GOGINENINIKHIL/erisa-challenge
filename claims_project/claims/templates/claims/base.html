@@ -14,6 +14,11 @@
 <body>
     {% block user_bar %}
     <div class="user-bar">
+        <!-- The logo is now an image tag -->
+        <a href="{% url 'claim_list' %}" class="logo-link">
+            <img src="{% static 'images/company_logo.png' %}" alt="ERISA Recovery Logo" class="company-logo">
+        </a>
+        
         <div class="user-info">
         {% if user.is_authenticated %}
             <span>Welcome, <strong>{{ user.username }}</strong></span>
